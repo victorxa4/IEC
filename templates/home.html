@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <form id="form" method="POST" enctype="multipart/form-data" ac>
+        {% csrf_token %}
+        <div id="file-mgmt">
+            <div id="selected-file">
+                No file selected.
+            </div>
+            <div>
+                <input id="choose-file" type="button" value="Choose file">
+            </div>
+        </div>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg" required style="display:none">
+        <input id="submit" type="submit" value="Submit">
+        <Textarea id="textarea" value="Result" readonly></Textarea>
+    </form>
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

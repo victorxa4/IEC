@@ -5,13 +5,16 @@ import pytesseract
 from PIL import Image
 from pathlib import Path
 
-class  Read_Image_View(APIView):
+class Read_Image_View(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request):
-        pytesseract.pytesseract.tesseract_cmd = str(Path(__file__).parent.parent) + '\\Tesseract-OCR\\tesseract.exe'
+        try:
+            pytesseract.pytesseract.tesseract_cmd = str(Path(__file__).parent.parent) + '\\Tesseract-OCR\\tesseract.exe'
 
-        image = self.request.data['image']
-        text = pytesseract.image_to_string(Image.open(image))
+            image = self.request.data['image']
+            text = pytesseract.image_to_string(Image.open(image))
 
-        return Response({'result': text}, status=200)
+            return Response({'result': text}, status=200)
+        except Exception as e:
+            return Response({'error': '\'image\' parameter required. Supported file formats: .jpg, .png'}, status=422)
